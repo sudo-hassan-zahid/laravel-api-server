@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/get-profile', [AuthController::class, 'getProfile']);
 
 Route::middleware('auth:sanctun')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
