@@ -59,3 +59,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+### Spin a MySQL container for this project
+
+```bash
+docker run --name laravel-mysql \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -e MYSQL_DATABASE=laravel-api-server \
+  -e MYSQL_USER=laravel \
+  -e MYSQL_PASSWORD=secret \
+  -p 3306:3306 \
+  -d mysql:latest
+```
