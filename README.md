@@ -59,7 +59,7 @@ http://localhost:8000/swagger
   php artisan optimize:clear
 
 ## Bonus:
-If you're on Linux, you can just spin a 
+If you're on Linux, you can just spin a MySQL container for this project.
 
 ### Spin a MySQL container for this project
 
