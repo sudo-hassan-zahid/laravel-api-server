@@ -22,7 +22,7 @@ class PostController extends Controller
     )]
     public function index()
     {
-     return response()->json(Post::all(),200);
+     return response()->json(Post::with('user')->get(),200);
     }
 
     #[OA\Post(
@@ -31,6 +31,7 @@ class PostController extends Controller
         tags: ['Posts'],
         summary: 'Store new post',
         description: 'Returns post data',
+        security: [['bearerAuth' => []]],
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
@@ -55,7 +56,7 @@ class PostController extends Controller
             'content' => 'required|string',
         ]);
 
-        $post = Post::create($validated);
+        $post = $request->user()->posts()->create($validated);
 
         return response()->json($post, 201);
     }

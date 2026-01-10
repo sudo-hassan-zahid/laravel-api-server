@@ -15,6 +15,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    
+    // Comments
+    Route::post('/posts/{post}/comments', [\App\Http\Controllers\Api\CommentController::class, 'store']);
 });
 
+Route::get('/posts/{post}/comments', [\App\Http\Controllers\Api\CommentController::class, 'index']);
 Route::apiResource('posts', PostController::class);
