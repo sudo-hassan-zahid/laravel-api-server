@@ -72,3 +72,22 @@ docker run --name laravel-mysql \
   -p 3306:3306 \
   -d mysql:latest
 ```
+
+## Frontend (React + Vite)
+
+The project includes a separate React frontend located in the `frontend` directory.
+
+### Setup & Run
+1. Navigate to the frontend directory: `cd frontend`
+2. Install dependencies: `npm install`
+3. Start the dev server: `npm run dev`
+4. Access the app at: `http://localhost:8080`
+
+### Features
+- **Dashboard**: View and create posts.
+- **Comments**: Interactive comments system.
+- **Authentication**: Seamless Login/Register via Sanctum.
+
+## Social Features
+- **Usernames**: Users have unique usernames.
+- **Comments**: Full support for commenting on posts.
