@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: 'http://localhost:8000', // Direct to backend since we use tokens
+    baseURL: '/', // Use relative URL to leverage Vite proxy
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

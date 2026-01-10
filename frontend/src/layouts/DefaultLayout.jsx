@@ -28,7 +28,7 @@ export default function DefaultLayout() {
                                 <span className="font-bold text-white">L</span>
                             </div>
                             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                                Laravel API
+                                H. Networks
                             </span>
                         </div>
 
