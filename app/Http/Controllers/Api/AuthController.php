@@ -58,11 +58,17 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $user = User::where('email', $request->email)->firstOrFail();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
     }
 
     #[OA\Post(
@@ -105,9 +111,13 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json([
             'message' => 'User successfully registered',
-            'user' => $user
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
         ], 201);
     }
 
@@ -152,53 +162,11 @@ class AuthController extends Controller
             new OA\Response(response: 401, description: 'Unauthorized')
         ]
     )]
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
+        $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    #[OA\Post(
-        path: '/api/refresh',
-        operationId: 'refresh',
-        tags: ['Auth'],
-        summary: 'Refresh JWT token',
-        description: 'Refresh the current token and receive a new one',
-        security: [['bearerAuth' => []]],
-        responses: [
-            new OA\Response(
-                response: 200,
-                description: 'New token generated',
-                content: new OA\JsonContent(
-                    properties: [
-                        new OA\Property(property: 'access_token', type: 'string'),
-                        new OA\Property(property: 'token_type', type: 'string', example: 'bearer'),
-                        new OA\Property(property: 'expires_in', type: 'integer')
-                    ]
-                )
-            ),
-            new OA\Response(response: 401, description: 'Unauthorized')
-        ]
-    )]
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
-    }
 }

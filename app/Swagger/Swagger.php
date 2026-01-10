@@ -15,7 +15,7 @@ use OpenApi\Attributes as OA;
     name: 'Authorization',
     in: 'header',
     scheme: 'bearer',
-    bearerFormat: 'JWT',
+    bearerFormat: 'Sanctum',
     description: 'Enter your Bearer token in the format **Bearer &lt;token&gt;**'
 )]
 class Swagger

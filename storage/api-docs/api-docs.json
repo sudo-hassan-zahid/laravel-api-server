@@ -209,48 +209,6 @@
                 ]
             }
         },
-        "/api/refresh": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Refresh JWT token",
-                "description": "Refresh the current token and receive a new one",
-                "operationId": "refresh",
-                "responses": {
-                    "200": {
-                        "description": "New token generated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "access_token": {
-                                            "type": "string"
-                                        },
-                                        "token_type": {
-                                            "type": "string",
-                                            "example": "bearer"
-                                        },
-                                        "expires_in": {
-                                            "type": "integer"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/posts": {
             "get": {
                 "tags": [
@@ -492,7 +450,7 @@
                 "description": "Enter your Bearer token in the format **Bearer &lt;token&gt;**",
                 "name": "Authorization",
                 "in": "header",
-                "bearerFormat": "JWT",
+                "bearerFormat": "Sanctum",
                 "scheme": "bearer"
             }
         }
